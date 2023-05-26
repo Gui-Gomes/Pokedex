@@ -94,7 +94,7 @@ void print(list<T>& lst, void(*print_function)(T))
 
 //Função responsável por trocar itens na lista.
 template<typename T>
-void switch_items(list<T>& lst, int position1, int position2)
+void switch_nodes(list<T>& lst, int position1, int position2)
 {
     node<T>* node1 = get_node(lst, position1);
     node<T>* node2 = get_node(lst, position2);
@@ -103,3 +103,22 @@ void switch_items(list<T>& lst, int position1, int position2)
     node2->data = aux;
 }
 
+template <typename T>
+void bubble_sort(list<T>& lst, int(*sort_function)(T,T))
+{
+    bool sort = false;
+    while (!sort)
+    {
+        sort = true;
+        for (int i = 1; i < lst.cont; i++)
+        {
+            node<T>* node1 = get_node(lst, i - 1);
+            node<T>* node2 = get_node(lst, i);
+            if (sort_function(node1->data, node2->data) > 0)
+            {
+                sort = false;
+                switch_nodes(lst, i, i - 1);
+            }
+        }
+    }
+}

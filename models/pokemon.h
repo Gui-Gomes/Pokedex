@@ -1,4 +1,5 @@
 #include <iostream>
+#include <stdlib.h>
 #include <string>
 #include <fstream>
 #include <sstream>
@@ -12,6 +13,7 @@ struct pokemon
     string pokemon_type2;
 };
 
+//Função responsável pela formatação da impressão dos pokemons
 void print_pokemons(pokemon p)
 {
     cout << "*-----------------------------------------------------*" << endl;
@@ -27,15 +29,21 @@ void print_pokemons(pokemon p)
     cout << "*-----------------------------------------------------*" << endl;
 }
 
+int compare_pokemons(pokemon p1, pokemon p2)
+{
+    return p1.name.compare(p2.name);
+}
+
+//Função responsável por carregar os itens do arquivo.csv para a lista
 template <typename T>
 void read_database(list<T>& lst)
 {
     fstream data;
     data.open("data/database.csv", ios::in);
     if (data.is_open())
-        cout << "File opened successfully!" << endl;
+        cout << "File opened successfully!" << endl << endl;
     else
-        cout << "Error opening file!" << endl;
+        cout << "Error opening file!" << endl << endl;
 
     string line;
     while (getline(data, line))
