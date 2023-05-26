@@ -1,5 +1,4 @@
 #include <iostream>
-#include <stdlib.h>
 #include <string>
 #include <fstream>
 #include <sstream>
@@ -57,6 +56,35 @@ void read_database(list<T>& lst)
         getline(ss, type2, ',');
 
         append(lst, {stoi(id), name, type1, type2});
+    }
+    data.close();
+}
+
+template <typename T>
+void save_on_database(list<T>& lst)
+{
+    fstream data;
+    data.open("data/database.csv", ios::out);
+    if (!data.is_open())
+        cout << "Error saving file!" << endl << endl;
+    else
+    {
+        node<T>* aux = lst.begin;
+        for (int i = 0; i < lst.cont; i++)
+        {
+            string id = to_string(aux->data.id);
+            string name = (aux->data).name;
+            string type1 = (aux->data).pokemon_type1;
+            string type2 = (aux->data).pokemon_type2;
+
+            aux = aux->next;
+
+            data << id << ",";
+            data << name << ",";
+            data << type1 << ",";
+            data << type2 << ",\n";
+        }
+        cout << "Files saved successfully!" << endl << endl;
     }
     data.close();
 }
