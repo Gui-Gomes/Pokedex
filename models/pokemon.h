@@ -87,4 +87,4 @@ void save_on_database(list<T>& lst)
         cout << "Files saved successfully!" << endl << endl;
     }
     data.close();
-}
+};
