@@ -95,6 +95,14 @@ void print(list<T>& lst, void(*print_function)(T))
     }
 }
 
+//Função responsável por imprimir um único nó
+template <typename T>
+void print_one_node(list<T>& lst, int id, void(*print_function)(T))
+{
+    node<T>* aux = get_node(lst, id);
+    print_function(aux->data);
+}
+
 //Função responsável por trocar itens na lista.
 template<typename T>
 void swap_nodes(list<T>& lst, int position1, int position2)
@@ -154,4 +162,25 @@ void quicksort(list<T>& lst, int left, int right)
         if (i < right)
             quicksort(lst, i, right);
     }
+}
+
+//Função responsável pela busca binária
+template <typename T>
+int binary_search(list<T>& lst, int left, int right, int target, int(*compare_function)(T, int))
+{
+    if (left <= right)
+    {
+        int mid = left + (right - left) / 2;
+        node<T>* midNode = get_node(lst, mid);
+        int comparison = compare_function(midNode->data, target);
+
+        if (comparison == 0)
+            return mid;
+        else if (comparison < 0)
+            return binary_search(lst, mid + 1, right, target, compare_function);
+        else
+            return binary_search(lst, left, mid - 1, target, compare_function);
+    }
+
+    return -1; // O elemento não foi encontrado
 }
