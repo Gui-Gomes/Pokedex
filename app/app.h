@@ -206,3 +206,39 @@ int sequential_search(list<T>& lst, const string& target)
     
     return -1;
 }
+
+// Função para editar um atributo específico de um nó
+template <typename T>
+void edit_node_data(list<T>& lst, int id, int(*compare_function)(T, int))
+{
+    node<T>* node_position = get_node(lst, binary_search(lst, 0, lst.cont - 1, id, compare_function));
+    if (node_position != nullptr)
+    {
+        int attribute;
+        string new_value;
+        cout << "Enter the attribute you want to change:" << endl << ">";
+        cin >> attribute;
+        cout << "Enter the new value:" << endl << ">";
+        cin >> new_value;
+        switch (attribute)
+        {
+            case 1: // Editar o atributo 'id'
+                node_position->data.id = stoi(new_value);
+                break;
+            case 2: // Editar o atributo 'name'
+                node_position->data.name = new_value;
+                break;
+            case 3: // Editar o atributo 'pokemon_type1'
+                node_position->data.pokemon_type1 = new_value;
+                break;
+            case 4: // Editar o atributo 'pokemon_type2'
+                node_position->data.pokemon_type2 = new_value;
+                break;
+            default:
+                cout << "Invalid attribute!" << endl;
+                break;
+        }
+    }
+    else
+        cout << "Pokemon not found!" << endl << endl;
+};
