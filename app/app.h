@@ -62,23 +62,22 @@ node<T>* get_node(list<T>& lst, int position)
 }
 
 //Função responsável por remover um item da lista.
-//Apresenta um bug que remove os itens anteriores.
 template <typename T>
 void remove_node(list<T>& lst, int position)
 {
-    if (position < 0 || position >= lst.cont)
-    {
-        cout << "Invalid position!" << endl << endl;
+    node<T> *aux = get_node(lst, position);
+    if (aux->next != nullptr)
+    {   
+        aux->next->previous = aux->next;
+    } else {
+        lst.end = aux->next;
     }
-    node<T>* aux = get_node(lst, position);
-    if (aux->next != NULL)
-        aux->next->previous = aux->previous;
-    else
-        lst.end = aux->previous;
-    if (aux->previous != NULL)
+    if (aux->previous != nullptr)
+    {
         aux->previous->next = aux->next;
-    else
+    } else {
         lst.begin = aux->next;
+    }
     delete aux;
     lst.cont--;
 }
@@ -97,9 +96,14 @@ void print(list<T>& lst, void(*print_function)(T))
 
 //Função responsável por imprimir um único nó
 template <typename T>
-void print_one_node(list<T>& lst, int id, void(*print_function)(T))
+void print_one_node(list<T>& lst, int position, void(*print_function)(T))
 {
-    node<T>* aux = get_node(lst, id);
+    if (position == -1)
+    {
+        cout << "Pokemon not found!" << endl << endl;
+        return;
+    }
+    node<T>* aux = get_node(lst, position);
     print_function(aux->data);
 }
 
@@ -164,7 +168,7 @@ void quicksort(list<T>& lst, int left, int right)
     }
 }
 
-//Função responsável pela busca binária
+//Função responsável pela busca binária, retornando a posição do nó encontrado
 template <typename T>
 int binary_search(list<T>& lst, int left, int right, int target, int(*compare_function)(T, int))
 {
@@ -182,5 +186,23 @@ int binary_search(list<T>& lst, int left, int right, int target, int(*compare_fu
             return binary_search(lst, left, mid - 1, target, compare_function);
     }
 
-    return -1; // O elemento não foi encontrado
+    return -1;
+}
+
+//Função responsável pela busca sequêncial, retornando a posição do nó encontrado
+template <typename T>
+int sequential_search(list<T>& lst, const string& target)
+{
+    node<T>* currentNode = lst.begin;
+    int position = 0;
+    while (currentNode != nullptr)
+    {
+        if (currentNode->data.name == target)
+            return position;
+        
+        currentNode = currentNode->next;
+        position++;
+    }
+    
+    return -1;
 }
