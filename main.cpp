@@ -18,12 +18,12 @@ int main (){
     read_database(Pokemons);
     presentationInitial();
 
-    cout << "Seja bem-vindo à Pokédex programada pelos alunos:\n\nGabriel Emanuel, Caio Gabriel, Guilherme Gomes e João Gabriel.\n\n";
+    cout << "Seja bem-vindo à Pokedex programada pelos alunos:\n\nGabriel Emanuel, Caio Gabriel, Guilherme Gomes e João Gabriel.\n\n";
     
     int opcao, opcao2;
     do {
         cout << "Digite qual opção você deseja realizar nesse programa:\n\n";
-        cout << "1. Adicionar um Pokémon\n2. Alterar um Pokémon\n3. Excluir um Pokémon\n4. Listar todos os Pokémons\n5. Pesquisar um pokémon\n6. Salvar os pokémon\n9. Sair do Programa\n\n";
+        cout << "1. Adicionar um Pokemon\n2. Alterar um Pokemon\n3. Excluir um Pokemon\n4. Listar todos os Pokemons\n5. Pesquisar um pokemon\n6. Salvar os pokemon\n9. Sair do Programa\n\n";
         cin >> opcao;
         switch(opcao){
             case 1:
@@ -91,16 +91,18 @@ int main (){
                 if (opcao2 == 1){
                     string namePoke;
                     bubble_sort(Pokemons, compare_pokemons);
-                    cout << "Insira o nome do pokémon a ser procurado: \n";
+                    cout << "Insira o nome do pokémon a ser procurado:";
                     cin >> namePoke;
+                    cout << endl << endl;
                     transform(namePoke.begin(), namePoke.end(), namePoke.begin(), ::toupper);
                     print_one_node(Pokemons, sequential_search(Pokemons, namePoke), print_pokemons);
                 }
                 else if (opcao2 == 2){
                     int id_5;
                     quicksort(Pokemons, 0, Pokemons.cont - 1);
-                    cout << "Insira o ID do pokémon a ser procurado: \n";
+                    cout << "Insira o ID do pokémon a ser procurado: ";
                     cin >> id_5;
+                    cout << endl << endl;
                     print_one_node(Pokemons, binary_search(Pokemons, 0, Pokemons.cont - 1, id_5, compare_by_id), print_pokemons);
                 }
                 else {

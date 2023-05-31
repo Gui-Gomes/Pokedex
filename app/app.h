@@ -1,6 +1,6 @@
 #include <iostream>
 #include <stdlib.h>
-#include <string.h>
+#include <string>
 using namespace std;
 
 template <typename T>
@@ -105,7 +105,7 @@ void print_one_node(list<T>& lst, int position, void(*print_function)(T))
 {
     if (position == -1)
     {
-        cout << "Pokemon not found!" << endl << endl;
+        cout << "Pokémon não encontrado!" << endl << endl;
         return;
     }
     node<T>* aux = get_node(lst, position);
@@ -223,7 +223,7 @@ void edit_node_data(list<T>& lst, int id, int(*compare_function)(T, int))
         string new_value;
         cout << "Digite o atributo que você deseja alterar:" << endl << ">";
         cin >> attribute;
-        cout << "Digite o novo valor:" << endl << ">";
+        cout << "Digite o novo atributo:" << endl << ">";
         cin >> new_value;
         switch (attribute)
         {
