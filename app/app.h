@@ -7,15 +7,15 @@ template <typename T>
 struct node
 {
     T data;
-    node<T>* previous = NULL;
-    node<T>* next = NULL;
+    node<T>* previous = nullptr;
+    node<T>* next = nullptr;
 };
 
 template <typename T>
 struct list
 {
-    node<T>* begin = NULL;
-    node<T>* end = NULL;
+    node<T>* begin = nullptr;
+    node<T>* end = nullptr;
     int cont = 0;
 };
 
@@ -29,6 +29,7 @@ void append(list<T>& lst, T value)
         lst.begin = lst.end = new_data;
     else
     {
+        new_data->previous = lst.end;
         lst.end->next = new_data;
         lst.end = new_data;
     }
@@ -46,40 +47,44 @@ void clear_memory(list<T>& lst)
         delete aux;
         lst.cont--;
     }
-    lst.begin = lst.end = NULL;
+    lst.begin = lst.end = nullptr;
 }
 
 //Função responsável por selecionar um nó da lista.
 template <typename T>
-node<T>* get_node(list<T>& lst, int position)
+node<T> *get_node(list<T> &lst, int position)
 {
-    if (position < 0 || position > lst.cont - 1)
-        throw invalid_argument("Invalid position!");
-    node<T>* aux = lst.begin;
-    for (int i = 0; i < position; i++)
+    node<T> *aux = lst.begin;
+    for(int i = 0; i < position; i++)
+    {
         aux = aux->next;
+    }
     return aux;
 }
 
 //Função responsável por remover um item da lista.
 template <typename T>
-void remove_node(list<T>& lst, int position)
+void remove_node(list<T>& lst, int id, int(compare_function)(T, int))
 {
-    node<T> *aux = get_node(lst, position);
-    if (aux->next != nullptr)
-    {   
-        aux->next->previous = aux->next;
-    } else {
-        lst.end = aux->next;
-    }
-    if (aux->previous != nullptr)
+    int position = binary_search(lst, 0, lst.cont - 1, id, compare_function);
+    if (position != -1)
     {
-        aux->previous->next = aux->next;
-    } else {
-        lst.begin = aux->next;
+        node<T> *nodeToRemove = get_node(lst, position);
+        if (nodeToRemove->previous != nullptr)
+            nodeToRemove->previous->next = nodeToRemove->next;
+        else
+            lst.begin = nodeToRemove->next;
+
+        if (nodeToRemove->next != nullptr)
+            nodeToRemove->next->previous = nodeToRemove->previous;
+        else
+            lst.end = nodeToRemove->previous;
+
+        delete nodeToRemove;
+        lst.cont--;
     }
-    delete aux;
-    lst.cont--;
+    else
+        cout << "O pokémon não existe na lista!" << endl;
 }
 
 //Função responsável por imprimir os itens da lista.
@@ -216,9 +221,9 @@ void edit_node_data(list<T>& lst, int id, int(*compare_function)(T, int))
     {
         int attribute;
         string new_value;
-        cout << "Enter the attribute you want to change:" << endl << ">";
+        cout << "Digite o atributo que você deseja alterar:" << endl << ">";
         cin >> attribute;
-        cout << "Enter the new value:" << endl << ">";
+        cout << "Digite o novo valor:" << endl << ">";
         cin >> new_value;
         switch (attribute)
         {

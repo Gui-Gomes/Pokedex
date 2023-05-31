@@ -12,6 +12,20 @@ struct pokemon
     string pokemon_type2;
 };
 
+void presentationInitial()
+{
+    cout << " _______                                     "<< endl;
+    cout << "|   ___  \\                                //"<< endl;
+    cout << "|  |   |  |   ______      __     ___    _______    _______       _______   ___      ___" << endl;
+    cout << "|  |___|  |  /  __  \\    |  |   /  /   |   ____|  |   ___  \\    |   ____|  \\  \\    /  /" << endl;
+    cout << "|   _____/  |  |  |  |   |  |__/  /    |  |__     |  |   |  \\   |  |__      \\  \\__/  / " << endl;
+    cout << "|  |        |  |  |  |   |  |__  |     |   __|    |  |   |  |   |   __|      |  __  | "<< endl;
+    cout << "|  |        |  |__|  |   |  |  \\  \\    |  |____   |  |___|  /   |  |____    /  /  \\  \\ "<< endl;
+    cout << "|__|         \\______/    |__|   \\__\\   |_______|  |________/    |_______|  /__/    \\__\\"<< endl;
+    cout <<"\nversion: 1.0\n"<< endl;
+    cout << "Projeto de Estrutura de Dados I | UERJ-ZO\n" << endl;
+}
+
 //Função responsável pela formatação da impressão dos pokemons
 void print_pokemons(pokemon p)
 {
@@ -53,9 +67,9 @@ void read_database(list<T>& lst)
     fstream data;
     data.open("data/database.csv", ios::in);
     if (data.is_open())
-        cout << "File opened successfully!" << endl << endl;
+        cout << "Arquivo aberto com sucesso!" << endl << endl;
     else
-        cout << "Error opening file!" << endl << endl;
+        cout << "Erro ao abrir o arquivo!" << endl << endl;
 
     string line;
     while (getline(data, line))
@@ -80,7 +94,7 @@ void save_on_database(list<T>& lst)
     fstream data;
     data.open("data/database.csv", ios::out);
     if (!data.is_open())
-        cout << "Error saving file!" << endl << endl;
+        cout << "Erro ao salvar o arquivo!" << endl << endl;
     else
     {
         node<T>* aux = lst.begin;
@@ -98,7 +112,7 @@ void save_on_database(list<T>& lst)
             data << type1 << ",";
             data << type2 << ",\n";
         }
-        cout << "Files saved successfully!" << endl << endl;
+        cout << "Os Pokémons foram salvos com sucesso!" << endl << endl;
     }
     data.close();
 };
